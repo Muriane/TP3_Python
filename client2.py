@@ -32,7 +32,7 @@ class MainWindow(QWidget):
         self.button.pressed.connect(self.on_click)
 
         self.show()
-
+##
     def on_click(self):
         hostname = self.text.text()
 
