@@ -23,7 +23,8 @@ class MainWindow(QWidget):
         self.label1 = QLabel("Enter your IP:", self)
         self.text = QLineEdit(self)
         self.text.move(10, 30)
-        self.label2 = QLabel("Answer:", self)
+
+        self.label2 = QLabel("Bouton:", self)
         self.label2.move(10, 60)
         self.button = QPushButton("Send", self)
         self.button.move(10, 90)
