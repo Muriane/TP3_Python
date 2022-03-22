@@ -1,0 +1,18 @@
+Un service web est un protocole d'interface informatique de la famille 
+des technologies web permettant la communication et l'échange de données
+ entre applications et systèmes hétérogènes dans des environnements 
+distribués. Il s'agit donc d'un ensemble de fonctionnalités exposées sur 
+internet ou sur un intranet, par et pour des applications ou machines, 
+sans intervention sans intervention humaine, de manière synchrone ou 
+asynchrone.
+
+Une API est un ensemble de définitions et de protocoles qui facilite 
+la création et l'intégration de logiciels d'applications. Elle est parfois
+ considérée comme un contrat entre un fournisseur d'informations et 
+utilisateur d'informations, qui permet de définir le contenu demandé au 
+consommateur (l'appel) et le contenu demandé au producteur (la réponse). 
+
+Un FastAPI est un editeur qui a été conçu pour être facile et intuitif 
+d'utilisation, toutes les décisions de design ont été testées sur de 
+nombreux éditeurs avant même de commencer le développement final afin 
+d'assurer la meilleure expérience de développement possible.
