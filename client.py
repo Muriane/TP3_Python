@@ -8,7 +8,7 @@ class Main():
             QMessageBox.about(self, "Error", "IP not found")
         if r.status_code == requests.codes.OK:
             return r.json()
-
+##
 
 if __name__ == "__main__":
 
