@@ -20,18 +20,21 @@ class MainWindow(QWidget):
         self.setFixedSize(400, 400)
     
         self.label1 = QLabel("Enter your IP:", self)
-        self.label3 = QLabel("Enter your hostname:", self)
-        self.label4 = QLabel("Enter your Api_key:", self)
         self.text1 = QLineEdit(self)
         self.text1.move(10, 30)
 
-        self.text2 = QLineEdit(self)
-        self.text2.move(10, 120)
+        self.label3 = QLabel("Enter your hostname:", self)
+        self.text3 = QLineEdit(self)
+        self.text3.move(10, 120)
         self.label3.move(10, 100)
 
+        self.label4 = QLabel("Enter your Api_key:", self)
         self.label4.move(10, 180)
-        self.text3 = QLineEdit(self)
-        self.text3.move(10, 200)
+        self.text4 = QLineEdit(self)
+        self.text4.move(10, 200)
+
+
+
         self.button = QPushButton("Send", self)
         self.button.move(10, 300)
 
@@ -42,18 +45,39 @@ class MainWindow(QWidget):
         self.show()
 
     def on_click(self):
-        hostname = self.text1.text()
-        hostname = self.text2.text()
+        ip = self.text1.text()
+        Api_key = self.text4.text()
         hostname = self.text3.text()
 
+        if ip == "":
+            QMessageBox.about(self, "Error", "Please fill the field")
+        else:
+            res = self.__query(ip)
+            if res:
+                self.label1.setText("Answer%s" % (res["Hello"]))
+                self.label1.adjustSize()
+                self.show()
+
+
+        if Api_key == "":
+             QMessageBox.about(self, "Error", "Please fill the field")
+        else:
+            res = self.__query(hostname)
+            if res:
+                self.label4.setText("Answer%s" % (res["Hello"]))
+                self.label4.adjustSize()
+                self.show()
+
+     
         if hostname == "":
             QMessageBox.about(self, "Error", "Please fill the field")
         else:
             res = self.__query(hostname)
             if res:
-                self.label2.setText("Answer%s" % (res["Hello"]))
-                self.label2.adjustSize()
+                self.label3.setText("Answer%s" % (res["Hello"]))
+                self.label3.adjustSize()
                 self.show()
+                
 
     def __query(self, hostname,ip, Api_key):
         url = "http://%s" % (hostname)
