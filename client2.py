@@ -1,3 +1,4 @@
+import webbrowser
 from PyQt5.QtWidgets import (
     QApplication,
     QWidget,
@@ -19,25 +20,24 @@ class MainWindow(QWidget):
         self.setWindowTitle("Client")
         self.setFixedSize(400, 400)
     
-        self.label1 = QLabel("Enter your IP:", self)
+        self.label1 = QLabel("Enter your hostname:", self)
         self.text1 = QLineEdit(self)
         self.text1.move(10, 30)
 
-        self.label3 = QLabel("Enter your hostname:", self)
+        self.label2 = QLabel("Enter your ip:", self)
+        self.text2 = QLineEdit(self)
+        self.text2.move(10, 120)
+        self.label2.move(10, 100)
+
+        self.label3 = QLabel("Enter your Api_key:", self)
+        self.label3.move(10, 180)
         self.text3 = QLineEdit(self)
-        self.text3.move(10, 120)
-        self.label3.move(10, 100)
+        self.text3.move(10, 200)
 
-        self.label4 = QLabel("Enter your Api_key:", self)
-        self.label4.move(10, 180)
-        self.text4 = QLineEdit(self)
-        self.text4.move(10, 200)
-
-
-
+        self.label4 = QLabel("Answer:", self)
+        self.label4.move(10, 230)
         self.button = QPushButton("Send", self)
-        self.button.move(10, 300)
-
+        self.button.move(10, 260)
 
         self.button.clicked.connect(self.on_click)
         self.button.pressed.connect(self.on_click)
@@ -45,42 +45,30 @@ class MainWindow(QWidget):
         self.show()
 
     def on_click(self):
-        ip = self.text1.text()
-        Api_key = self.text4.text()
-        hostname = self.text3.text()
+        hostname = self.text1.text()
+        ip = self.text2.text()
+        Api_key = self.text3.text()
 
         if ip == "":
             QMessageBox.about(self, "Error", "Please fill the field")
         else:
-            res = self.__query(ip)
+            res = self.__query(hostname,ip, Api_key)
             if res:
-                self.label1.setText("Answer%s" % (res["Hello"]))
-                self.label1.adjustSize()
-                self.show()
+    
+                self.label4.setText("\n \n Longitude: %s \n Latitude: %s \n" % (res["Longitude"], res["Latitude"]))
 
-
-        if Api_key == "":
-             QMessageBox.about(self, "Error", "Please fill the field")
-        else:
-            res = self.__query(hostname)
-            if res:
-                self.label4.setText("Answer%s" % (res["Hello"]))
                 self.label4.adjustSize()
+
                 self.show()
 
-     
-        if hostname == "":
-            QMessageBox.about(self, "Error", "Please fill the field")
-        else:
-            res = self.__query(hostname)
-            if res:
-                self.label3.setText("Answer%s" % (res["Hello"]))
-                self.label3.adjustSize()
-                self.show()
-                
+                url2 = "https://www.openstreetmap.org/?mlat=%s&mlon=%s#map=12" % (res["Latitude"], res["Longitude"])
 
+                webbrowser.open_new_tab(url2)
+
+
+        
     def __query(self, hostname,ip, Api_key):
-        url = "http://%s" % (hostname)
+        url = "http://%s/ip/%s?key=%s" % (hostname,ip,Api_key)
         r = requests.get(url)
         if r.status_code == requests.codes.NOT_FOUND:
             QMessageBox.about(self, "Error", "IP not found")
